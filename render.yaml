@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: backtester-dashboard
+    env: python
+    plan: free
+    buildCommand: ""
+    startCommand: python dashboard.py
