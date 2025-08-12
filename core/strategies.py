@@ -36,7 +36,10 @@ class RSIStrategy(Strategy):
         rs = avg_gain / avg_loss
         df["RSI"] = 100 - (100 / (1 + rs))
 
-        df["Signal"] = (df["RSI"] < 30).astype(float)
+        df["Signal"] = 0
+        df.loc[df["RSI"] < 30, "Signal"] = 1    # Buy
+        df.loc[df["RSI"] > 70, "Signal"] = -1   # Sell
+
         df["Position"] = df["Signal"].diff().fillna(0)
         return df
 
@@ -54,7 +57,10 @@ class BollingerBandsStrategy(Strategy):
         df["Upper"] = rolling_mean + self.num_std * rolling_std
         df["Lower"] = rolling_mean - self.num_std * rolling_std
 
-        df["Signal"] = ((df["Close"] < df["Lower"]) | (df["Close"] > df["Upper"]))
+        df["Signal"] = 0
+        df.loc[df["Close"] < df["Lower"], "Signal"] = 1    # Buy
+        df.loc[df["Close"] > df["Upper"], "Signal"] = -1   # Sell
+
         df["Signal"] = df["Signal"].astype(float)
         df["Position"] = df["Signal"].diff().fillna(0)
         return df
