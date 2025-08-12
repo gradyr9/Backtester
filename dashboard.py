@@ -18,7 +18,7 @@ app = Dash(
 
 app.layout = dbc.Container(
     [
-        html.H1("Backtesting Dashboard — OPT FIX v6"),
+        html.H1("Backtesting Dashboard"),
 
         dbc.Row(
             [
