@@ -228,9 +228,9 @@ def run_backtest(n_clicks, selected_strategy, symbol, start_date, end_date, para
 @app.callback(
     Output("tab-content", "children"),
     Input("graph-tabs", "value"),
-    State("stored-equity-figure", "data"),
-    State("stored-signals-figure", "data"),
-    State("stored-drawdown-figure", "data"),
+    Input("stored-equity-figure", "data"),
+    Input("stored-signals-figure", "data"),
+    Input("stored-drawdown-figure", "data"),
 )
 def render_tab_content(tab, equity_fig, signals_fig, drawdown_fig):
     # Optimizer tab: render only the optimizer UI (force a remount via key)
